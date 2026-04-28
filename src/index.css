@@ -1,0 +1,57 @@
+:root {
+  /* Фирменный зелёный — акценты и база фонов страницы */
+  --quiz-brand: #116466;
+  --quiz-brand-mid: #148f91;
+  --quiz-brand-light: #7df2dc;
+  --quiz-brand-soft: rgba(17, 100, 102, 0.14);
+  --quiz-brand-faint: rgba(125, 242, 220, 0.35);
+  /* Светлые поля только из разбавления бренда, без «чужой» мяты */
+  --quiz-bg-page: color-mix(in srgb, var(--quiz-brand) 5.5%, white);
+  --quiz-bg-page-mid: color-mix(in srgb, var(--quiz-brand) 4%, white);
+  --quiz-bg-page-deep: color-mix(in srgb, var(--quiz-brand) 7%, white);
+
+  --quiz-font-body: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --quiz-font-heading: "Montserrat", "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  font-family: var(--quiz-font-body);
+  color: #111827;
+  background-color: var(--quiz-bg-page);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      ellipse 115% 75% at 50% -18%,
+      color-mix(in srgb, var(--quiz-brand) 14%, white) 0%,
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse 75% 50% at 100% 55%,
+      color-mix(in srgb, var(--quiz-brand) 10%, white) 0%,
+      transparent 48%
+    ),
+    linear-gradient(
+      172deg,
+      var(--quiz-bg-page) 0%,
+      var(--quiz-bg-page-mid) 45%,
+      var(--quiz-bg-page-deep) 100%
+    );
+}
+
+#root {
+  min-height: 100vh;
+}
+
+button {
+  font: inherit;
+}

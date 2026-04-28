@@ -1,0 +1,15 @@
+services:
+  quiz:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: quiz-app
+    ports:
+      - "9999:9999"
+    environment:
+      - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
+      - VITE_SUPABASE_ANON_KEY=${VITE_SUPABASE_ANON_KEY}
+    volumes:
+      - .:/app
+      - /app/node_modules
+    restart: unless-stopped
