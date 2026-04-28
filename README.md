@@ -1,6 +1,6 @@
 # Quiz App
 
-Отдельный React-приложение для анимированных квизов на `localhost:9999/{title}`.
+Отдельный React-приложение для анимированных квизов на `localhost:10099/{title}`.
 
 ## Что реализовано
 
@@ -27,10 +27,10 @@
 
 ```bash
 npm install
-npm run dev -- --host 0.0.0.0 --port 9999
+npm run dev -- --host 0.0.0.0 --port 10099
 ```
 
-Открыть: `http://localhost:9999/mindflow-v1`
+Открыть: `http://localhost:10099/mindflow-v1`
 
 ## Docker запуск
 
@@ -38,7 +38,7 @@ npm run dev -- --host 0.0.0.0 --port 9999
 docker compose up --build
 ```
 
-Открыть: `http://localhost:9999/mindflow-v1`
+Открыть: `http://localhost:10099/mindflow-v1`
 
 ## Готовый сценарий MindFlow
 

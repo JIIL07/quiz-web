@@ -7,6 +7,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 9999
+EXPOSE 10099
 
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "9999"]
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "10099"]

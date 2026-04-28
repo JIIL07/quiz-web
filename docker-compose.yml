@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     container_name: quiz-app
     ports:
-      - "9999:9999"
+      - "10099:10099"
     environment:
       - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
       - VITE_SUPABASE_ANON_KEY=${VITE_SUPABASE_ANON_KEY}
