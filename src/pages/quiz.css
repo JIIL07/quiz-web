@@ -223,7 +223,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 12px;
 }
 
 .quiz-application-modal-backdrop {
@@ -237,10 +237,10 @@
 .quiz-application-modal-content {
   position: relative;
   z-index: 1;
-  width: min(980px, calc(100vw - 24px));
-  min-height: min(760px, calc(100vh - 24px));
+  width: min(1100px, calc(100vw - 24px));
+  height: min(860px, calc(100dvh - 24px));
   background: #2c3531;
-  border-radius: 18px;
+  border-radius: 28px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   overflow: hidden;
   box-shadow: 0 24px 60px rgba(2, 6, 23, 0.36);
@@ -264,7 +264,7 @@
 
 .quiz-application-iframe {
   width: 100%;
-  min-height: min(760px, calc(100vh - 24px));
+  height: 100%;
   border: 0;
   display: block;
   background: #2c3531;
@@ -555,14 +555,15 @@
 
 .scenario-likert-circles {
   display: flex;
-  justify-content: space-between;
-  gap: clamp(6px, 2vw, 12px);
-  margin-bottom: 12px;
+  justify-content: center;
+  gap: clamp(2px, 0.8vw, 6px);
+  margin: 0 auto 12px;
+  width: fit-content;
 }
 
 .scenario-likert-circle {
-  width: clamp(56px, 9vw, 70px);
-  height: clamp(56px, 9vw, 70px);
+  width: clamp(50px, 7.6vw, 60px);
+  height: clamp(50px, 7.6vw, 60px);
   border-radius: 50%;
   border: 1px solid #e5e7eb;
   background: #f3f4f6;
@@ -588,6 +589,8 @@
   font-size: 13px;
   color: #9ca3af;
   padding: 0 4px;
+  max-width: 336px;
+  margin: 0 auto;
 }
 
 .scenario-primary-btn {
@@ -628,6 +631,7 @@
   font-size: 16px;
   color: #6b7280;
   font-weight: 400;
+  white-space: pre-line;
 }
 
 .scenario-counter-number {
@@ -645,11 +649,15 @@
   border-radius: 16px;
   overflow: hidden;
   line-height: 0;
-  background: #050a0a;
+  background: #f8fafc;
   border: 1px solid color-mix(in srgb, var(--quiz-brand) 40%, #0a1212);
   box-shadow:
     0 12px 40px color-mix(in srgb, var(--quiz-brand) 22%, transparent),
     inset 0 1px 0 color-mix(in srgb, var(--quiz-brand) 25%, transparent);
+}
+
+.scenario-counter-visual--banner {
+  max-width: min(100%, 720px);
 }
 
 .scenario-counter-illustration {
@@ -919,8 +927,8 @@
   }
 
   .scenario-likert-circle {
-    width: clamp(62px, 14vw, 82px);
-    height: clamp(62px, 14vw, 82px);
+    width: clamp(52px, 11.2vw, 66px);
+    height: clamp(52px, 11.2vw, 66px);
   }
 }
 
@@ -939,13 +947,17 @@
   }
 
   .scenario-likert-circle {
-    width: clamp(54px, 15.5vw, 70px);
-    height: clamp(54px, 15.5vw, 70px);
+    width: clamp(48px, 13.4vw, 58px);
+    height: clamp(48px, 13.4vw, 58px);
     font-size: clamp(16px, 4.6vw, 18px);
   }
 
   .scenario-counter-visual {
     max-width: min(100%, 340px);
+  }
+
+  .scenario-counter-visual--banner {
+    max-width: min(100%, 500px);
   }
 
   .scenario-binary-card {
@@ -965,17 +977,18 @@
   }
 
   .scenario-likert-circles {
-    gap: 6px;
+    gap: 4px;
   }
 
   .scenario-likert-circle {
-    width: clamp(48px, 16vw, 58px);
-    height: clamp(48px, 16vw, 58px);
-    font-size: 16px;
+    width: clamp(42px, 14.2vw, 50px);
+    height: clamp(42px, 14.2vw, 50px);
+    font-size: 15px;
   }
 
   .scenario-likert-labels {
     font-size: 12px;
+    max-width: 300px;
   }
 
   .scenario-primary-btn,
@@ -987,5 +1000,9 @@
   .scenario-counter-visual {
     max-width: min(100%, 300px);
     border-radius: 14px;
+  }
+
+  .scenario-counter-visual--banner {
+    max-width: min(100%, 360px);
   }
 }

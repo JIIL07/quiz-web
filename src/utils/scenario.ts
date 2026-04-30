@@ -16,22 +16,23 @@ export const INJECT_HELPED_CLIENTS: CounterInfoStep = {
   step_type: 'counter_info',
   payload: {
     line_before: 'Мы уже помогли',
-    count_target: 5000,
+    count_target: 4999,
     line_after: 'людям с похожими переживаниями',
     duration_ms: 2200,
     illustration_src: '/card/world.png',
   },
 }
 
-/** Заглушка под вторую анимацию после 7-го вопроса (позже заменим отдельным экраном) */
+/** Вставляется приложением после 7-го вопроса (не из БД)  */
 export const INJECT_MID_JOURNEY: CounterInfoStep = {
   step_id: '__inject_mid_journey',
   step_type: 'counter_info',
   payload: {
-    line_before: 'С нами уже',
-    count_target: 2840,
-    line_after: 'человек проходят путь к спокойствию каждый месяц',
+    line_before: 'Создано психологами сообщества Хранители',
+    line_after:
+      'Все психологи имеют высшее психологическое образование, постоянную личную терапию, посещают супервизии',
     duration_ms: 2000,
+    illustration_src: '/card/banner.png',
   },
 }
 

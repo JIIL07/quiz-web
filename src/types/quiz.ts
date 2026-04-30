@@ -27,7 +27,7 @@ export type SingleScaleStep = {
 
 export type CounterInfoPayload = {
   line_before: string
-  count_target: number
+  count_target?: number
   line_after: string
   duration_ms?: number
   /** Картинка под счётчиком (например карта), путь из public */

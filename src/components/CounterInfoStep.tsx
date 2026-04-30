@@ -10,11 +10,16 @@ type CounterInfoStepProps = {
 
 export const CounterInfoStep = ({ payload, onContinue }: CounterInfoStepProps) => {
   const durationSec = (payload.duration_ms ?? 2200) / 1000
-  const target = payload.count_target
-  const [display, setDisplay] = useState(1)
-  const [allowContinue, setAllowContinue] = useState(false)
+  const target = payload.count_target ?? null
+  const [display, setDisplay] = useState(target ?? 0)
+  const [allowContinue, setAllowContinue] = useState(target === null)
 
   useEffect(() => {
+    if (target === null) {
+      setDisplay(0)
+      setAllowContinue(true)
+      return
+    }
     const controls = animate(1, target, {
       duration: durationSec * 1.12,
       ease: easeOutGentle,
@@ -39,19 +44,23 @@ export const CounterInfoStep = ({ payload, onContinue }: CounterInfoStepProps) =
       transition={pageTransition}
     >
       <p className="scenario-counter-line">{payload.line_before}</p>
-      <motion.p
-        className="scenario-counter-number"
-        key={formatted}
-        initial={{ scale: 0.99, opacity: 0.92 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ type: 'spring', stiffness: 260, damping: 28, mass: 0.95 }}
-      >
-        {formatted}
-      </motion.p>
+      {target !== null && (
+        <motion.p
+          className="scenario-counter-number"
+          key={formatted}
+          initial={{ scale: 0.99, opacity: 0.92 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ type: 'spring', stiffness: 260, damping: 28, mass: 0.95 }}
+        >
+          {formatted}
+        </motion.p>
+      )}
       <p className="scenario-counter-line">{payload.line_after}</p>
 
       {payload.illustration_src ? (
-        <div className="scenario-counter-visual">
+        <div
+          className={`scenario-counter-visual ${target === null ? 'scenario-counter-visual--banner' : ''}`}
+        >
           <img src={payload.illustration_src} alt="" className="scenario-counter-illustration" />
         </div>
       ) : (

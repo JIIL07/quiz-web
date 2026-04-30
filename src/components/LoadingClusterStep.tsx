@@ -149,9 +149,9 @@ export const LoadingClusterStep = ({
           <div className="scenario-loading-reviews">
             {reviews.map((r) => (
               <div key={r.step_id} className="scenario-review-card">
-                <div className="scenario-review-stars" aria-label={`Рейтинг ${r.payload.rating} из 5`}>
+                <div className="scenario-review-stars" aria-label="Рейтинг 5 из 5">
                   {Array.from({ length: 5 }, (_, k) => (
-                    <span key={k} className={k < r.payload.rating ? 'star on' : 'star'}>
+                    <span key={k} className="star on">
                       ★
                     </span>
                   ))}

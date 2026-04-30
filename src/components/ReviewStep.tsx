@@ -17,9 +17,9 @@ export const ReviewStep = ({ payload, onContinue }: ReviewStepProps) => (
     transition={pageTransition}
   >
     <div className="scenario-review-card">
-      <div className="scenario-review-stars" aria-label={`Рейтинг ${payload.rating} из 5`}>
+      <div className="scenario-review-stars" aria-label="Рейтинг 5 из 5">
         {Array.from({ length: 5 }, (_, i) => (
-          <span key={i} className={i < payload.rating ? 'star on' : 'star'}>
+          <span key={i} className="star on">
             ★
           </span>
         ))}

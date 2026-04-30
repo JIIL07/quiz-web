@@ -10,7 +10,7 @@ import { QuizStepCard } from '../components/QuizStepCard'
 import { QuizTopChrome } from '../components/QuizTopChrome'
 import { ReviewStep } from '../components/ReviewStep'
 import { ScaleQuestionStep } from '../components/ScaleQuestionStep'
-import { getQuizTemplateBySlug, getRandomFeedbackReviews } from '../services/quizRepository'
+import { getQuizTemplateBySlug } from '../services/quizRepository'
 import { saveQuizSubmission } from '../services/submissionService'
 import {
   completeQuizStatsSession,
@@ -60,7 +60,24 @@ const getUtm = () => {
   }
 }
 
-const ADVANCE_MS = 320
+const ADVANCE_MS = 160
+const INTRO_TITLE = 'Эмоциональная диагностика'
+const INTRO_SUBTITLE =
+  'Узнайте ваш уровень стресса, энергии и выгорания за 4 минуты, чтобы начать первую бесплатную сессию в Хранителях.'
+const LOADING_REVIEWS: ReviewPayload[] = [
+  {
+    name: 'Виктория',
+    time_ago: '5 дней назад',
+    text: 'С теплотой и благодарностью оставляю отзыв. Спасибо! Вы пришли на помощь в трудную минуту. После нескольких очень эффективных консультаций я снова почувствовала твердую почву под ногами.',
+    rating: 5,
+  },
+  {
+    name: 'Мария',
+    time_ago: 'Неделю назад',
+    text: 'Не думала, что одна сессия как-то мне сможет помочь, скептически относилась к проекту. Но благодаря Хранителям мне стало лучше и я продолжила терапию с психологом. Наконец-то вернулась к хорошей жизни.',
+    rating: 5,
+  },
+]
 
 export const QuizPage = () => {
   const { title = '' } = useParams()
@@ -71,7 +88,6 @@ export const QuizPage = () => {
   const [answers, setAnswers] = useState<QuizAnswer[]>([])
   const [resultRange, setResultRange] = useState<QuizResultRange | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [feedbackReviews, setFeedbackReviews] = useState<ReviewPayload[] | null>(null)
   const [statsSessionId, setStatsSessionId] = useState<string | null>(null)
   const answersRef = useRef<QuizAnswer[]>([])
 
@@ -92,23 +108,6 @@ export const QuizPage = () => {
         if (cancelled) return
         setStage('error')
         setErrorMessage('Не удалось найти или загрузить квиз.')
-      })
-
-    return () => {
-      cancelled = true
-    }
-  }, [title])
-
-  useEffect(() => {
-    let cancelled = false
-    getRandomFeedbackReviews()
-      .then((items) => {
-        if (cancelled) return
-        setFeedbackReviews(items.length > 0 ? items : null)
-      })
-      .catch(() => {
-        if (cancelled) return
-        setFeedbackReviews(null)
       })
 
     return () => {
@@ -428,13 +427,13 @@ export const QuizPage = () => {
 
   const effectiveLoadingReviews = useMemo(() => {
     if (!loadingTail) return []
-    if (!feedbackReviews || feedbackReviews.length === 0) return loadingTail.reviews
-    return feedbackReviews.map((r, idx) => ({
+    if (loadingTail.reviews.length === 0) return []
+    return LOADING_REVIEWS.map((r, idx) => ({
       step_id: `feedback-${idx + 1}`,
       step_type: 'review_card' as const,
       payload: r,
     }))
-  }, [loadingTail, feedbackReviews])
+  }, [loadingTail])
 
   const recordClusterBinary = useCallback((stepId: string, yes: boolean) => {
     const nextAns = [
@@ -592,9 +591,9 @@ export const QuizPage = () => {
                 exit={{ opacity: 0, y: -20 }}
                 transition={pageTransition}
               >
-                <div className="quiz-badge">AI психологический квиз</div>
-                <h1 className="quiz-intro-title">{quiz.title}</h1>
-                {quiz.description && <p className="quiz-intro-description">{quiz.description}</p>}
+                <div className="quiz-badge">Психологический тест</div>
+                <h1 className="quiz-intro-title">{INTRO_TITLE}</h1>
+                <p className="quiz-intro-description">{INTRO_SUBTITLE}</p>
                 <motion.button type="button" className="quiz-next" onClick={handleStart} whileTap={{ scale: 0.98 }}>
                   Начать
                 </motion.button>
