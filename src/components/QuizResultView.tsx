@@ -17,7 +17,7 @@ type QuizResultViewProps = {
 export const QuizResultView = ({
   title,
   description,
-  action = 'placeholder',
+  action,
   actionLabel,
   actionUrl,
   onApplicationClick,
@@ -26,10 +26,14 @@ export const QuizResultView = ({
   const [isApplicationOpen, setIsApplicationOpen] = useState(false)
 
   const applicationUrl = useMemo(() => {
-    if (!actionUrl) return ''
-    const separator = actionUrl.includes('?') ? '&' : '?'
-    return `${actionUrl}${separator}utm_campaign=quiz`
+    const raw = actionUrl?.trim()
+    if (!raw) return ''
+    const separator = raw.includes('?') ? '&' : '?'
+    return `${raw}${separator}utm_campaign=quiz`
   }, [actionUrl])
+
+  const applicationLabel = actionLabel?.trim() ?? ''
+  const showApplication = action === 'application' && Boolean(applicationUrl && applicationLabel)
 
   return (
     <>
@@ -45,7 +49,7 @@ export const QuizResultView = ({
         <h1 className="quiz-result-title">{title}</h1>
         <p className="result-description">{description}</p>
         <div className="quiz-result-actions">
-          {action === 'application' && actionLabel && applicationUrl && (
+          {showApplication && (
             <motion.button
               type="button"
               className="quiz-next quiz-result-primary-action"
@@ -56,7 +60,7 @@ export const QuizResultView = ({
                 setIsApplicationOpen(true)
               }}
             >
-              {actionLabel}
+              {applicationLabel}
             </motion.button>
           )}
           <motion.button type="button" className="quiz-next" onClick={onRestart} whileTap={{ scale: 0.98 }} transition={softSpring}>

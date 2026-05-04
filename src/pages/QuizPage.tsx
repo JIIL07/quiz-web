@@ -591,7 +591,7 @@ export const QuizPage = () => {
                 exit={{ opacity: 0, y: -20 }}
                 transition={pageTransition}
               >
-                <div className="quiz-badge">Психологический тест</div>
+                <div className="quiz-badge">AI Психологический тест</div>
                 <h1 className="quiz-intro-title">{INTRO_TITLE}</h1>
                 <p className="quiz-intro-description">{INTRO_SUBTITLE}</p>
                 <motion.button type="button" className="quiz-next" onClick={handleStart} whileTap={{ scale: 0.98 }}>

@@ -29,6 +29,7 @@ export const INJECT_MID_JOURNEY: CounterInfoStep = {
   step_type: 'counter_info',
   payload: {
     line_before: 'Создано психологами сообщества Хранители',
+    line_before_role: 'heading',
     line_after:
       'Все психологи имеют высшее психологическое образование, постоянную личную терапию, посещают супервизии',
     duration_ms: 2000,

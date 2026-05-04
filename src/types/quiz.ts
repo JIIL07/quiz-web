@@ -27,6 +27,8 @@ export type SingleScaleStep = {
 
 export type CounterInfoPayload = {
   line_before: string
+  /** Заголовок вместо подписи над счётчиком (крупнее и контрастнее) */
+  line_before_role?: 'caption' | 'heading'
   count_target?: number
   line_after: string
   duration_ms?: number

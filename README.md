@@ -67,9 +67,15 @@ docker compose up --build
 
 ```json
 [
-  { "from": 13, "title": "Низкий уровень", "description": "…" },
-  { "from": 26, "title": "Умеренный", "description": "…" },
-  { "from": 39, "title": "Повышенный", "description": "…" },
-  { "from": 52, "title": "Высокий", "description": "…" }
+  {
+    "from": 13,
+    "title": "…",
+    "description": "…",
+    "action": "application",
+    "action_label": "Записаться на бесплатную сессию",
+    "action_url": "https://psy.hrani.live/application_form"
+  }
 ]
 ```
+
+Кнопка записи показывается, если у выбранного диапазона `action` равен `application` и заданы непустые `action_url` и `action_label`.

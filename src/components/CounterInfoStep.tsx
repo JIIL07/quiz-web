@@ -43,7 +43,11 @@ export const CounterInfoStep = ({ payload, onContinue }: CounterInfoStepProps) =
       exit="exit"
       transition={pageTransition}
     >
-      <p className="scenario-counter-line">{payload.line_before}</p>
+      {payload.line_before_role === 'heading' ? (
+        <h2 className="scenario-counter-line scenario-counter-line--heading">{payload.line_before}</h2>
+      ) : (
+        <p className="scenario-counter-line">{payload.line_before}</p>
+      )}
       {target !== null && (
         <motion.p
           className="scenario-counter-number"
