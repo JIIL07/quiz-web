@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { BinaryQuestionStep } from '../components/BinaryQuestionStep'
+import { GenderSelectStep, type Gender } from '../components/GenderSelectStep'
 import { CounterInfoStep } from '../components/CounterInfoStep'
 import { LoadingClusterStep } from '../components/LoadingClusterStep'
 import { LoadingProfileStep } from '../components/LoadingProfileStep'
@@ -47,7 +48,7 @@ import { pageTransition } from '../utils/motion'
 import { calculateScore, pickResultRange } from '../utils/score'
 import './quiz.css'
 
-type Stage = 'loading' | 'start' | 'quiz' | 'result' | 'error'
+type Stage = 'loading' | 'start' | 'gender' | 'quiz' | 'result' | 'error'
 
 const getUtm = () => {
   const params = new URLSearchParams(window.location.search)
@@ -89,6 +90,7 @@ export const QuizPage = () => {
   const [resultRange, setResultRange] = useState<QuizResultRange | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [statsSessionId, setStatsSessionId] = useState<string | null>(null)
+  const [gender, setGender] = useState<Gender | null>(null)
   const answersRef = useRef<QuizAnswer[]>([])
 
   useEffect(() => {
@@ -190,6 +192,16 @@ export const QuizPage = () => {
 
       setResultRange(result)
       setStage('result')
+
+      // Mail.ru Top goal — lead from quiz
+      try {
+        const tmr = (window as unknown as { _tmr?: unknown[] })._tmr
+        if (Array.isArray(tmr)) {
+          tmr.push({ type: 'reachGoal', id: 3503497, goal: 'Lead quiz' })
+        }
+      } catch {
+        // non-blocking analytics
+      }
     },
     [quiz, statsSessionId, questionSteps],
   )
@@ -280,8 +292,14 @@ export const QuizPage = () => {
     }
   }
 
-  const handleStart = async () => {
+  const handleStart = () => {
     if (!quiz) return
+    setStage('gender')
+  }
+
+  const handleGenderSelect = async (selected: Gender) => {
+    if (!quiz) return
+    setGender(selected)
 
     const sessionId = createStatsSessionId()
     try {
@@ -313,6 +331,7 @@ export const QuizPage = () => {
     setStepIndex(0)
     setResultRange(null)
     setStatsSessionId(null)
+    setGender(null)
     setStage('start')
   }
 
@@ -598,6 +617,10 @@ export const QuizPage = () => {
                   Начать
                 </motion.button>
               </motion.section>
+            )}
+
+            {stage === 'gender' && (
+              <GenderSelectStep key="gender" onSelect={handleGenderSelect} />
             )}
 
             {stage === 'quiz' && renderQuizStep()}

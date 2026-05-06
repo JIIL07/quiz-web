@@ -929,6 +929,89 @@
   color: #1f2937;
 }
 
+/* ── Gender selection step ── */
+
+.gender-step {
+  text-align: center;
+}
+
+.gender-step-title {
+  margin: 0 0 32px;
+  font-size: clamp(26px, 5.2vw, 36px);
+  line-height: 1.2;
+  color: #111827;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-family: var(--quiz-font-heading);
+}
+
+.gender-step-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(12px, 3vw, 24px);
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.gender-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 0;
+  border: 2px solid #e5e7eb;
+  border-radius: 22px;
+  background: #fff;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.04);
+  transition:
+    border-color 0.32s cubic-bezier(0.33, 1, 0.68, 1),
+    box-shadow 0.32s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.gender-card:hover {
+  border-color: var(--quiz-brand-mid);
+  box-shadow:
+    0 8px 28px rgba(17, 100, 102, 0.14),
+    0 2px 6px rgba(17, 100, 102, 0.08);
+}
+
+.gender-card:active {
+  border-color: var(--quiz-brand);
+}
+
+.gender-card-img-wrap {
+  width: 100%;
+  aspect-ratio: 4 / 4.4;
+  overflow: hidden;
+  border-radius: 20px 20px 0 0;
+}
+
+.gender-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.gender-card:hover .gender-card-img-wrap img {
+  transform: scale(1.04);
+}
+
+.gender-card-label {
+  display: block;
+  padding: 12px 8px 16px;
+  font-size: clamp(15px, 3.8vw, 17px);
+  font-weight: 600;
+  color: #111827;
+  letter-spacing: -0.01em;
+}
+
 @media (max-width: 1024px) {
   .quiz-shell {
     padding: 16px 14px 24px;
