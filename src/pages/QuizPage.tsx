@@ -195,8 +195,8 @@ export const QuizPage = () => {
 
       // Mail.ru Top goal — lead from quiz
       try {
-        const tmr = (window as unknown as { _tmr?: unknown[] })._tmr
-        if (Array.isArray(tmr)) {
+        const tmr = (window as unknown as { _tmr?: { push: (...args: unknown[]) => void } })._tmr
+        if (tmr && typeof tmr.push === 'function') {
           tmr.push({ type: 'reachGoal', id: 3503497, goal: 'Lead quiz' })
         }
       } catch {
