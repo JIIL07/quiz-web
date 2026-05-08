@@ -62,6 +62,8 @@ const getUtm = () => {
 }
 
 const ADVANCE_MS = 160
+const TOP_MAIL_COUNTER_ID = '3503497'
+const TOP_MAIL_LEAD_GOAL = 'Lead quiz'
 const INTRO_TITLE = 'Эмоциональная диагностика'
 const INTRO_SUBTITLE =
   'Узнайте ваш уровень стресса, энергии и выгорания за 4 минуты, чтобы начать первую бесплатную сессию в Хранителях.'
@@ -90,8 +92,9 @@ export const QuizPage = () => {
   const [resultRange, setResultRange] = useState<QuizResultRange | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [statsSessionId, setStatsSessionId] = useState<string | null>(null)
-  const [gender, setGender] = useState<Gender | null>(null)
+  const [, setGender] = useState<Gender | null>(null)
   const answersRef = useRef<QuizAnswer[]>([])
+  const leadGoalSentRef = useRef(false)
 
   useEffect(() => {
     answersRef.current = answers
@@ -194,13 +197,24 @@ export const QuizPage = () => {
       setStage('result')
 
       // Mail.ru Top goal — lead from quiz
-      try {
-        const tmr = (window as unknown as { _tmr?: { push: (...args: unknown[]) => void } })._tmr
-        if (tmr && typeof tmr.push === 'function') {
-          tmr.push({ type: 'reachGoal', id: 3503497, goal: 'Lead quiz' })
+      if (!leadGoalSentRef.current) {
+        try {
+          const tmr = (window as unknown as { _tmr?: { push: (...args: unknown[]) => void } })._tmr
+          if (tmr && typeof tmr.push === 'function') {
+            tmr.push({ type: 'reachGoal', id: TOP_MAIL_COUNTER_ID, goal: TOP_MAIL_LEAD_GOAL })
+            leadGoalSentRef.current = true
+            if (import.meta.env.DEV) {
+              console.info('[top_mail] reachGoal sent', {
+                id: TOP_MAIL_COUNTER_ID,
+                goal: TOP_MAIL_LEAD_GOAL,
+              })
+            }
+          } else if (import.meta.env.DEV) {
+            console.warn('[top_mail] _tmr.push is unavailable')
+          }
+        } catch {
+          // non-blocking analytics
         }
-      } catch {
-        // non-blocking analytics
       }
     },
     [quiz, statsSessionId, questionSteps],
@@ -300,6 +314,7 @@ export const QuizPage = () => {
   const handleGenderSelect = async (selected: Gender) => {
     if (!quiz) return
     setGender(selected)
+    leadGoalSentRef.current = false
 
     const sessionId = createStatsSessionId()
     try {
@@ -328,6 +343,7 @@ export const QuizPage = () => {
   const handleRestart = () => {
     setAnswers([])
     answersRef.current = []
+    leadGoalSentRef.current = false
     setStepIndex(0)
     setResultRange(null)
     setStatsSessionId(null)
