@@ -63,7 +63,7 @@ const getUtm = () => {
 
 const ADVANCE_MS = 160
 const TOP_MAIL_COUNTER_ID = '3503497'
-const TOP_MAIL_LEAD_GOAL = 'Lead quiz'
+const TOP_MAIL_LEAD_GOAL = 'Leadquiz'
 const INTRO_TITLE = 'Эмоциональная диагностика'
 const INTRO_SUBTITLE =
   'Узнайте ваш уровень стресса, энергии и выгорания за 4 минуты, чтобы начать первую бесплатную сессию в Хранителях.'
